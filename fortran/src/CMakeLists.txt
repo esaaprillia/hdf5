@@ -137,10 +137,13 @@ if (BUILD_STATIC_LIBS)
 endif ()
 
 #-----------------------------------------------------------------------------
-add_executable (H5match_types
-    ${HDF5_F90_BINARY_DIR}/H5fort_type_defines.h
-    ${HDF5_F90_SRC_SOURCE_DIR}/H5match_types.c
-)
+add_executable (H5match_types ${HDF5_F90_BINARY_DIR}/H5fort_type_defines.h ${HDF5_F90_SRC_SOURCE_DIR}/H5match_types.c)
+if(DEFINED LEMON_C_COMPILER)
+	set(CMAKE_C_COMPILER "${LEMON_C_COMPILER}")
+	set(CMAKE_C_FLAGS "")
+	set(CMAKE_EXE_LINKER_FLAGS "")
+	set(CMAKE_SYSROOT "")
+endif()
 target_include_directories (H5match_types PRIVATE "${HDF5_SRC_BINARY_DIR};${HDF5_SRC_INCLUDE_DIRS};${HDF5_F90_BINARY_DIR};$<$<BOOL:${HDF5_ENABLE_PARALLEL}>:${MPI_C_INCLUDE_DIRS}>")
 # check if a pre-generated H5fortran_types.F90 file is present
 if (NOT EXISTS "${HDF5_GENERATED_SOURCE_DIR}/H5fortran_types.F90")
