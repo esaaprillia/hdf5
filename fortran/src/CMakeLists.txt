@@ -112,6 +112,7 @@ endif ()
 #-----------------------------------------------------------------------------
 
 add_executable (H5_buildiface ${HDF5_F90_SRC_SOURCE_DIR}/H5_buildiface.F90)
+set_target_properties(H5_buildiface PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/H5_buildiface1")
 target_include_directories (H5_buildiface PRIVATE "${HDF5_SRC_BINARY_DIR};${HDF5_F90_BINARY_DIR}")
 #if (BUILD_SHARED_LIBS)
 #  target_compile_definitions(H5_buildiface PRIVATE "$<$<STREQUAL:x${CMAKE_Fortran_SIMULATE_ID},xMSVC>:/MT>")
@@ -141,6 +142,7 @@ add_executable (H5match_types
     ${HDF5_F90_BINARY_DIR}/H5fort_type_defines.h
     ${HDF5_F90_SRC_SOURCE_DIR}/H5match_types.c
 )
+set_target_properties(H5match_types PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/H5match_types1")
 target_include_directories (H5match_types PRIVATE "${HDF5_SRC_BINARY_DIR};${HDF5_SRC_INCLUDE_DIRS};${HDF5_F90_BINARY_DIR};$<$<BOOL:${HDF5_ENABLE_PARALLEL}>:${MPI_C_INCLUDE_DIRS}>")
 # check if a pre-generated H5fortran_types.F90 file is present
 if (NOT EXISTS "${HDF5_GENERATED_SOURCE_DIR}/H5fortran_types.F90")
