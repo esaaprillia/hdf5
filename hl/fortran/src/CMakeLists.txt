@@ -127,6 +127,8 @@ if (NOT EXISTS "${HDF5_GENERATED_SOURCE_DIR}/H5LTff_gen.F90")
   if (CMAKE_CROSSCOMPILING)
     add_custom_command (TARGET H5HL_buildiface POST_BUILD
         BYPRODUCTS ${HDF5_HL_F90_BINARY_DIR}/H5LTff_gen.F90 ${HDF5_HL_F90_BINARY_DIR}/H5TBff_gen.F90
+        COMMAND    rm ${CMAKE_BINARY_DIR}/bin/H5HL_buildiface
+        COMMAND    mv ${CMAKE_BINARY_DIR}/bin/H5HL_buildiface1 ${CMAKE_BINARY_DIR}/bin/H5HL_buildiface
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E env ${CROSSCOMPILING_PATH}
         COMMAND    $<TARGET_FILE:H5HL_buildiface>
@@ -136,6 +138,8 @@ if (NOT EXISTS "${HDF5_GENERATED_SOURCE_DIR}/H5LTff_gen.F90")
   else ()
     add_custom_command (TARGET H5HL_buildiface POST_BUILD
         BYPRODUCTS ${HDF5_HL_F90_BINARY_DIR}/H5LTff_gen.F90 ${HDF5_HL_F90_BINARY_DIR}/H5TBff_gen.F90
+        COMMAND    rm ${CMAKE_BINARY_DIR}/bin/H5HL_buildiface
+        COMMAND    mv ${CMAKE_BINARY_DIR}/bin/H5HL_buildiface1 ${CMAKE_BINARY_DIR}/bin/H5HL_buildiface
         COMMAND    $<TARGET_FILE:H5HL_buildiface>
         WORKING_DIRECTORY ${HDF5_HL_F90_BINARY_DIR}
         COMMENT "Generating the H5LTff_gen.F90, H5TBff_gen.F90 files"
