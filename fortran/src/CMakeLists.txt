@@ -149,6 +149,8 @@ if (NOT EXISTS "${HDF5_GENERATED_SOURCE_DIR}/H5fortran_types.F90")
   if (CMAKE_CROSSCOMPILING)
     add_custom_command (TARGET H5match_types POST_BUILD
         BYPRODUCTS ${HDF5_F90_BINARY_DIR}/H5f90i_gen.h ${HDF5_F90_BINARY_DIR}/H5fortran_types.F90
+        COMMAND    rm ${CMAKE_BINARY_DIR}/bin/H5match_types
+        COMMAND    mv ${CMAKE_BINARY_DIR}/bin/H5match_types1 ${CMAKE_BINARY_DIR}/bin/H5match_types
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E env ${CROSSCOMPILING_PATH}
         COMMAND    $<TARGET_FILE:H5match_types>
@@ -158,6 +160,8 @@ if (NOT EXISTS "${HDF5_GENERATED_SOURCE_DIR}/H5fortran_types.F90")
   else ()
     add_custom_command (TARGET H5match_types POST_BUILD
         BYPRODUCTS ${HDF5_F90_BINARY_DIR}/H5f90i_gen.h ${HDF5_F90_BINARY_DIR}/H5fortran_types.F90
+        COMMAND    rm ${CMAKE_BINARY_DIR}/bin/H5match_types
+        COMMAND    mv ${CMAKE_BINARY_DIR}/bin/H5match_types1 ${CMAKE_BINARY_DIR}/bin/H5match_types
         COMMAND    $<TARGET_FILE:H5match_types>
         WORKING_DIRECTORY ${HDF5_F90_BINARY_DIR}
         COMMENT "Generating the H5fortran_types.F90 and H5f90i_gen.h files"
